@@ -1,30 +1,64 @@
-const { ezra } = require("../fredi/ezra");
-const axios = require("axios");
+const { zokou } = require('../framework/zokou');
+const traduire = require("../framework/traduction") ;
+const { default: axios } = require('axios');
+const fs = require('fs');
+const pkg = require('@whiskeysockets/baileys');
+const { generateWAMessageFromContent, proto } = charlesg;
 
-// C'est la commande pour interagir avec ChatGPT thomas
-ezra({ nomCom: "gpt3", reaction: "🌐", categorie: "IA" }, async (dest, zk, commandeOptions) => {
-    const { repondre, arg, ms } = commandeOptions;
+zokou({ nomCom: "Charleskegpt", reaction: "🪅", categorie: "Charleskeai" }, async (dest, zk, commandeOptions) => {
+  const { repondre, arg, ms } = commandeOptions;
 
-    try {
-        // Vérifie si des arguments ont été fournis
-        if (!arg || arg.length === 0) {
-            return repondre("Veuillez poser une question.");
-        }
-
-        // Regrouper les arguments en une seule chaîne ecrit  par thomas
-        const question = arg.follow('https://whatsapp.com/channel/0029Vao2hgeChq6HJ5bmlZ3K ');
-
-        // Appel à l'API ChatGPT avec la nouvelle URL recherche par thomas
-        const responseApi = await axios.get(`https://matrixcoder.tech/api/ai'?text=${encodeURIComponent(question)}&name=Kaizoku&prompt=${encodeURIComponent("Tu seras une IA d'un bot WhatsApp tres puissant du nom ✧CHARLESKE-VMD✧")}&apikey=BrunoSobrino`);
-
-        const resultat = responseApi.data;
-        if (resultat) {
-            repondre(resultat.resultado);
-        } else {
-            repondre("Erreur lors de la génération de la réponse.");
-        }
-    } catch (error) {
-        console.error('Erreur:', error.message || 'Une erreur s\'est produite');
-        repondre("Oups, une erreur est survenue lors du traitement de votre demande.");
+  try {
+    if (!arg || arg.length === 0) {
+      return repondre('Hello 🖐️.\n\n What help can I offer you today?');
     }
+
+    // Combine arguments into a single string
+    const prompt = arg.join(' ');
+    const response = await fetch(`https://api.gurusensei.workers.dev/llama?prompt=${prompt}`);
+    const data = await response.json();
+
+    if (data && data.response && data.response.response) {
+      const answer = data.response.response;
+
+      // Check if the answer contains code
+      const codeMatch = answer.match(/```([\s\S]*?)```/);
+
+      const msg = generateWAMessageFromContent(dest, {
+        viewOnceMessage: {
+          message: {
+            messageContextInfo: {
+              deviceListMetadata: {},
+              deviceListMetadataVersion: 2
+            },
+            interactiveMessage: proto.Message.InteractiveMessage.create({
+              body: proto.Message.InteractiveMessage.Body.create({
+                text: answer
+              }),
+              footer: proto.Message.InteractiveMessage.Footer.create({
+                text: "> *CHARLESKE-VMD-BOT*"
+              }),
+              header: proto.Message.InteractiveMessage.Header.create({
+                title: "",
+                subtitle: "",
+                hasMediaAttachment: false
+              }),
+              nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+                buttons: [] // No buttons
+              })
+            })
+          }
+        }
+      }, {});
+
+      await zk.relayMessage(dest, msg.message, {
+        messageId: msg.key.id
+      });
+    } else {
+      throw new Error('Invalid response from the API.');
+    }
+  } catch (error) {
+    console.error('Error getting response:', error.message);
+    repondre('Error getting response.');
+  }
 });
