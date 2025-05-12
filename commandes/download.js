@@ -20,13 +20,13 @@ const handleDownload = async (dest, zk, params, serviceName, apiUrl, exampleUsag
       const result = response.data.link || response.data.url || "Download link not found.";
 
       await zk.sendMessage(dest, {
-        text: `📥 *${serviceName} Download:*\n\n🔗 *Link:* ${result}\n\n✅ Enjoy your download!`,
+        text: `📥 *${serviceName} Download:*\n\n🔗 *Link:* ${result}\n\n✅ Enjoy your download!🤗`,
         contextInfo: {
           externalAdReply: {
             title: conf.BOT,
             body: "Fast & Reliable Downloads",
             thumbnailUrl: conf.URL,
-            sourceUrl: "https://whatsapp.com/channel/0029Vao2hgeChq6HJ5bmlZ3K",
+            sourceUrl: "",
             mediaType: 1,
             showAdAttribution: true,
           },

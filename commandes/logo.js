@@ -1,517 +1,283 @@
 const { zokou } = require("../framework/zokou");
-var mumaker = require("mumaker");
-zokou({ nomCom: "hacker",
-    categorie: "Logo", reaction: "👨🏿‍💻" }, async (origineMessage, zk, commandeOptions) => {
-    const { prefixe, arg, ms, repondre } = commandeOptions;
-    if (!arg || arg == "") {
-        repondre("*__Exemple : * " + prefixe + "hacker yesser");
-        return;
-    }
-    try {
-        let radio = "984dd03e-220d-4335-a6ba-7ac56b092240";
-        let anu = await mumaker.ephoto("https://en.ephoto360.com/create-anonymous-hacker-avatars-cyan-neon-677.html", arg); //
-        //
-       // let res = Object.values(anu)[3];
-        // console.log("&€"+res);
-      //  let lien = "https://e1.yotools.net" + res;
-        repondre("* processing...*");
-        await zk.sendMessage(origineMessage, { image: { url:anu.image}, caption: "* \t Logo made by LUCKY-MD*" }, { quoted: ms });
-    }
-    catch (e) {
-        repondre("🥵🥵 " + e);
-    }
-});
-zokou({ nomCom: "dragonball", categorie: "Logo", reaction: "🐉" }, async (dest, zk, commandeOptions) => {
-    let { arg, repondre, prefixe, ms } = commandeOptions;
-    try {
-        const noArgMsg = `*_EXEMPLE *:  ${prefixe}dragonball Fredi`;
-        //  if(arg=='') {await zok.sendMessage(dest,{text:noArgMsg},{quoted:infoMessage}); return;}
-        if (arg == '' || !arg) {
-            repondre(noArgMsg);
-            return;
-        }
-        var lienMaker = "https://ephoto360.com/tao-hieu-ung-chu-phong-cach-dragon-ball-truc-tuyen-1000.html";
-        var lienMaker2 = "https://en.ephoto360.com/create-dragon-ball-style-text-effects-online-809.html";
-      
-       
-        const imgInfo = await mumaker.ephoto(lienMaker2, arg.join(' '));
-       
-        await zk.sendMessage(dest, { text: " *\t Traitement en cours ...*" }, { quoted: ms });
-       // var idImg = Object.values(imgInfo)[3];
-       
-        await zk.sendMessage(dest, { image: { url: imgInfo.image }, caption: "* \t Logo by LUCKY-MD*" }, { quoted: ms });
-    }
-    catch (e) {
-        repondre("🥵🥵 " + e);
-    }
-});
-////////////////////////////
-zokou({ nomCom: "naruto", categorie: "Logo", reaction: "⛩" }, async (dest, zk, commandeOptions) => {
-    let { ms, arg, repondre, prefixe } = commandeOptions;
-    try {
-        if (!arg || arg == '') {
-            repondre("*_Exemple : * " + prefixe + "naruto lucky");
-            return;
-        }
-        var nar = "https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html";
-        //let img= await //mumaker.textpro('https://textpro.me/create-naruto-logo-style-text-effect-online-1125.html',arg);
-        repondre("*traitement en cours...*");
-        var radio2 = "e0723d60-fc0d-421f-bf8f-a9b9b61e4be6";
-        var img = await mumaker.ephoto("https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html", arg.join(' '));
-        
-        await zk.sendMessage(dest, { image: { url: img.image }, caption: "\t\t *Logo by LUCKY-MD *" }, { quoted: ms });
-    }
-    catch (e) {
-        repondre("🥵🥵 " + e);
-    }
-});
-//didong
-/*ezra({ nomCom: "didong", categorie: "Logo", reaction: "📱" }, async (dest, zk, commandeOptions) => {
-    let { ms, repondre, arg, prefixe } = commandeOptions;
-    
-    var titre = "\t logo by Lucky_Md";
-    try {
-      var lien = "https://ephoto360.com/tao-anh-che-vui-tu-choi-cuoc-goi-voi-ten-cua-ban-930.html";
-        if (!arg || arg == "") {
-           repondre(`*exemple :* ${prefixe}didong fredi`)
-            return ;
-        }
-      console.log(typeof arg[0])
-        var maker = mumaker.ephoto(lien, "arg");
-        var lienImg = Object.values(maker)[1];
-        await zk.sendMessage(dest, { image: { url: lienImg }, caption: titre });
-    }
-    catch (e) {
-        repondre("🥵🥵 " + e);
-    }
-});
-*/
+const axios = require("axios");
 
-
-zokou({ nomCom: "didong", categorie: "Logo", reaction: "📱" }, async (dest, zk, commandeOptions) => {
-    let { arg, repondre, prefixe, ms } = commandeOptions;
-   try {
-     var titre = "\t* logo by Lucky_Md*";
-      var lien = "https://ephoto360.com/tao-anh-che-vui-tu-choi-cuoc-goi-voi-ten-cua-ban-930.html";
-        if (!arg || arg == "") {
-           repondre(`*exemple :* ${prefixe}didong fredi`)
-            return ;
-        }
-     
-        var maker =await mumaker.ephoto(lien,arg.join(' '));
-    
-        
-     repondre('*processing...*')
-       await zk.sendMessage(dest, { image: { url: maker.image}, caption: titre });
-    }
-    catch (e) {
-        repondre("🥵🥵 " + e);
-    }
-    }
-);
-
-
-zokou({nomCom : "wall",categorie : "Logo",reaction : "👍"} , async (dest,zk,commandeOptions) =>{
-
-  const {arg,repondre,ms,prefixe} = commandeOptions;
-  if(!arg[0]) { repondre( `Exemple of using commande:\n ${prefixe}wall Lucky_Md` ); return ;}
-   let text = arg.join(" ")
-   mumaker.textpro("https://textpro.me/break-wall-text-effect-871.html", text)
-.then((data) =>{
- zk.sendMessage(dest,{image : { url : data.image},caption : 'Logo by'},{quoted:ms})
-}) 
-.catch(console.log)
-})
-;
-zokou({nomCom: "summer", categorie: "Logo", reaction: "🌞"}, async (dest, zk, commandeOptions) => {
-  const { arg, repondre, ms, prefixe } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}summer My text`);
-    return;
-  }
-  
+zokou({ nomCom: "logo", categorie: "Search", reaction: "🎬" }, async (dest, zk, commandeOptions) => {
+  const { ms, repondre, arg } = commandeOptions;
   const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/create-sunset-light-text-effects-online-for-free-1124.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by' }, { quoted: ms });
-    })
-    .catch(console.error);
-});
 
-zokou({nomCom: "neonlight", categorie: "Logo", reaction: "💡"}, async (dest, zk, commandeOptions) => {
-  const { arg, repondre, ms, prefixe } = commandeOptions;
-  /*if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}neonlight My text`);
-    return;
-  }*/
-  if(!arg ||arg=="")
-  {
-      repondre(`Exemple of using commande:\n ${prefixe}neonlight My text`);
-    return;
-  }
-  
-  const text = arg.join(" ");
-  try{
-    
-    let maker=await mumaker.textpro("https://textpro.me/create-glowing-neon-light-text-effect-online-free-1061.html",arg)
-    //repondre(stringify(maker))
-    /*.then((data) => {*/
-     zk.sendMessage(dest, { image: { url: maker.image }, caption: 'Logo by' }, { quoted: ms });
-    
-    /*.catch(console.error);*/
-
-  
-}catch(e){repondre("🥵🥵 "+e)}
-
-});
-
-zokou({nomCom: "greenneon", categorie: "Logo", reaction: "🟢"}, async (dest, zk, commandeOptions) => {
-  const { arg, repondre, ms, prefixe } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}greenneon My text`);
-    return;
-  }
-  
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/green-neon-text-effect-874.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by' }, { quoted: ms });
-    })
-    .catch(console.error);
-});
-
-zokou({nomCom: "glitch", categorie: "Logo", reaction: "🎛️"}, async (dest, zk, commandeOptions) => {
-  const { arg, repondre, ms, prefixe } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}glitch My text`);
-    return;
-  }
-  
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by' }, { quoted: ms });
-    })
-    .catch(console.error);
-});
-
-zokou({nomCom: "devil", categorie: "Logo", reaction: "😈"}, async (dest, zk, commandeOptions) => {
-  const { arg, repondre, ms, prefixe } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}devil My text`);
-    return;
-  }
-  
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/create-neon-devil-wings-text-effect-online-free-1014.html",arg)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by' }, { quoted: ms });
-    })
-    .catch(console.error);
-});
-////////////////////
-zokou(
-  {nomCom:"boomlg",categorie:
-    "Logo",reaction:"💥"},async(dest,zk,commandeOptions)=>{
-
-    let {ms,repondre,prefixe,arg}=commandeOptions;
-
-        if(!arg||arg=="")
-        {
-   
-          repondre(`  Exemple :* ${prefixe}boom fredie`)
-          return ;
-        }
-       try{
-              var radio2 = "e0723d60-fc0d-421f-bf8f-a9b9b61e4be6";
-         let radio = "984dd03e-220d-4335-a6ba-7ac56b092240";
-var lien="https://en.ephoto360.com/boom-text-comic-style-text-effect-675.html";
-        console.log(arg)
-         var img =await mumaker.ephoto(lien,arg)
-
-        //var idImg = Object.values(img)[3];
-       // var lienImage = "https://e1.yotools.net/" + idImg; 
-
-  /* let radio = "984dd03e-220d-4335-a6ba-7ac56b092240";
-         var v="https://en.ephoto360.com/boom-text-comic-style-text-effect-675.html";
-         var c="https://en.ephoto360.com/create-anonymous-hacker-avatars-cyan-neon-677.html"
-        let anu = await mumaker.ephoto4(v, arg, radio);      
-         let res = Object.values(anu)[3];*/
-        // console.log("&€"+res);
-       // let lien = "https://e1.yotools.net" + res;
-         
-
-repondre("  processing ...")
-         await zk.sendMessage(dest,{image:{url:img.image},caption:"\t *Logo by LUCKY MD*"})
-         
-        // await zk.sendMessage(dest,{image:{url:lienImage},caption:"\t *Logo by Lucky-Md*"})
-         
-
-
-       }catch(e){repondre("🥵🥵 "+e)}
-    
-    }
-)
-//water
-zokou({nomCom:"water",categorie:"Logo",reation:"💦"},async(dest,zk,commandeOptions)=>{
-
-  
-var {ms,repondre,arg,prefixe}=commandeOptions;
-  if(!arg||arg=="")
-  {
-    repondre(`${prefixe}water 𝗵𝗮𝗻𝘀`)
-    return;
-  }
-  try{
-    var lien ="https://en.ephoto360.com/create-water-effect-text-online-295.html";
-    var img =await mumaker.ephoto(lien,arg);
-    repondre(" processing ...")
-    await zk.sendMessage(dest,{image:{url:img.image},caption:"  *Logo by LUCKY MD*"})
-  }catch(e){repondre(`🥵🥵 ${e}`)}
-
-});
-
-zokou({ nomCom: "snow", categorie: "Logo", reaction: "❄️" }, async (dest, zk, commandeOptions) => {
-  const { arg, ms, prefixe,repondre } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}Snow My text`);
+  if (!text) {
+    repondre("Please provide a search query.");
     return;
   }
 
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/create-beautiful-3d-snow-text-effect-online-1101.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by LUCKY' }, { quoted: ms });
-    })
-    .catch((err) => {
-      console.error("Une erreur s'est produite :", err);
-    });
-});
-
-zokou({ nomCom: "transformer", categorie: "Logo", reaction: "🤖" }, async (dest, zk, commandeOptions) => {
-  const { arg, ms, prefixe,repondre } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}Transformer My text`);
-    return;
-  }
-
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/create-a-transformer-text-effect-online-1035.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by FREDI' }, { quoted: ms });
-    })
-    .catch((err) => {
-      console.error("Une erreur s'est produite :", err);
-    });
-});
-
-zokou({ nomCom: "thunder", categorie: "Logo", reaction: "⚡" }, async (dest, zk, commandeOptions) => {
-  const { arg, ms, prefixe,repondre } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}Thunder My text`);
-    return;
-  }
-
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/online-thunder-text-effect-generator-1031.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by FREDI' }, { quoted: ms });
-    })
-    .catch((err) => {
-      console.error("Une erreur s'est produite :", err);
-    });
-});
-
-zokou({ nomCom: "harrypotter", categorie: "Logo", reaction: "🧙‍♂️" }, async (dest, zk, commandeOptions) => {
-  const { arg, ms, prefixe,repondre } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}HarryPotter My text`);
-    return;
-  }
-
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/create-harry-potter-text-effect-online-1025.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by LUCKY' }, { quoted: ms });
-    })
-    .catch((err) => {
-      console.error("Une erreur s'est produite :", err);
-    });
-});
-
-zokou({ nomCom: "cat", categorie: "Logo", reaction: "🪟" }, async (dest, zk, commandeOptions) => {
-  const { arg, ms, prefixe } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}FoggyWindow My text`);
-    return;
-  }
-
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/write-text-on-foggy-window-online-free-1015.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by' }, { quoted: ms });
-    })
-    .catch((err) => {
-      console.error("Une erreur s'est produite :", err);
-    });
-});
-
-                                                                         
-
-zokou({ nomCom: "whitegold", categorie: "Logo", reaction: "💫" }, async (dest, zk, commandeOptions) => {
-  const { arg, ms, prefixe,repondre } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}WhiteGold My text`);
-    return;
-  }
-
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/elegant-white-gold-3d-text-effect-online-free-1070.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by FREDI' }, { quoted: ms });
-    })
-    .catch((err) => {
-      console.error("Une erreur s'est produite :", err);
-    });
-});
-
-zokou({ nomCom: "lightglow", categorie: "Logo", reaction: "🌟" }, async (dest, zk, commandeOptions) => {
-  const { arg, ms, prefixe,repondre } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}LightGlow My text`);
-    return;
-  }
-
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/create-light-glow-sliced-text-effect-online-1068.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by 𝗵𝗮𝗻𝘀' }, { quoted: ms });
-    })
-    .catch((err) => {
-      console.error("Une erreur s'est produite :", err);
-    });
-});
-
-zokou({ nomCom: "thor", categorie: "Logo", reaction: "🔨" }, async (dest, zk, commandeOptions) => {
-  const { arg, ms, prefixe,repondre } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}Thor My text`);
-    return;
-  }
-
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/create-thor-logo-style-text-effect-online-1064.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by' }, { quoted: ms });
-    })
-    .catch((err) => {
-      console.error("Une erreur s'est produite :", err);
-    });
-});
-
-zokou({ nomCom: "neon", categorie: "Logo", reaction: "💡" }, async (dest, zk, commandeOptions) => {
-  const { arg, ms, prefixe,repondre } = commandeOptions;
-  if (!arg[0]) {
-    repondre(`Exemple of using commande:\n ${prefixe}Neon My text`);
-    return;
-  }
-
-  const text = arg.join(" ");
-  mumaker.textpro("https://textpro.me/neon-text-effect-online-879.html", text)
-    .then((data) => {
-      zk.sendMessage(dest, { image: { url: data.image }, caption: 'Logo by' }, { quoted: ms });
-    })
-    .catch((err) => {
-      console.error("Une erreur s'est produite :", err);
-    });
-});
-
-
-
-zokou({nomCom:"purple",categorie:"Logo",reaction:"🧳"},async(dest,zk,commandeOptions)=>{
-  var {ms,repondre,prefixe,arg}=commandeOptions;
-  
-    try{
-      if(!arg||arg=="")
-  {
-    repondre(prefixe+"purple Lucky");return;}
-      const lien="https://en.ephoto360.com/purple-text-effect-online-100.html"
-      var img = await mumaker.ephoto(lien,arg);
-      repondre(" processing ...")
-      await zk.sendMessage(dest,{image:{url:img.image},caption:"      *Logo by LUCKY_MD*"});
-    }catch(e){repondre(e)}
-  
-})
-
-zokou({nomCom:"gold",categorie:"Logo",reaction:"🧚🏿‍♀️"},async(dest,zk,commandeOptions)=>{
-
-
-  let {ms,arg,prefixe,repondre}=commandeOptions;
-  try{
-      if(!arg||arg=="")
-      {
-        repondre(prefixe+"gold Lucky-MD");return;
-      }
-
-    var lien="https://en.ephoto360.com/modern-gold-4-213.html";
-
-    var img = await mumaker.ephoto(lien,arg);
-   repondre("processing ...")
-    await zk.sendMessage(dest,{image:{url:img.image},caption:" *Logo by LUCKY_MD*"},{quoted:ms})
-  }catch(e){repondre(e)}
-})
-
-
-zokou({nomCom:"arena",categorie:"Logo",reaction:"🥵"},async(dest,zk,commandeOptions)=>{
-
-
-  let {ms,arg,prefixe,repondre}=commandeOptions;
-  try{
-      if(!arg||arg=="")
-      {
-        repondre(prefixe+"arena Lucky-MD");return;
-      }
-
-    var lien="https://en.ephoto360.com/create-cover-arena-of-valor-by-mastering-360.html";
-
-    var img = await mumaker.ephoto(lien,arg.join(' '));
-   repondre("processing ...")
-    await zk.sendMessage(dest,{image:{url:img.image},caption:" *Logo by LUCKY_MD*"},{quoted:ms})
-  }catch(e){repondre(e)}
-})
-
-zokou({nomCom:"incandescent",categorie:"Logo",reaction:"😋"},async(dest,zk,commandeOptions)=>{
-
-
-  let {ms,arg,prefixe,repondre}=commandeOptions;
-  try{
-      if(!arg||arg=="")
-      {
-        repondre(prefixe+"incandescent LUCKY-MD");return;
-      }
-
-    var lien="https://en.ephoto360.com/text-effects-incandescent-bulbs-219.html";
-
-    var img = await mumaker.ephoto(lien,arg.join(' '));
-   repondre("processing ...")
-    await zk.sendMessage(dest,{image:{url:img.image},caption:" *Logo by LUCKY_MD *"},{quoted:ms})
-  } catch(e){repondre(e)}
-})
-
-zokou({ nomCom: "gif×1", categorie: "Logo", reaction: "😋" }, async (dest, zk, commandeOptions) => {
-  let { ms, arg, prefixe, repondre } = commandeOptions;
   try {
-    if (!arg || arg === "") {
-      repondre(`${prefixe}gif×1 Thomas-MD`);
-      return;
-    }
+    // Message content
+    const messageText = `Reply with below numbers to generate *${text}* logo
 
-    const text = arg.join(" ");
-    const lien = `https://api.caliph.biz.id/api/kaneki?nama=${encodeURIComponent(text)}&apikey=caliphkey`;
-    const img = await mumaker.sendFile(m.chat, lien, 'logo.png', '✅ Result', m);
-    repondre("Processing...");
-    await zk.sendMessage(dest, { image: { url: img }, caption: "*Logo by Lucky-Md*" }, { quoted: ms });
-  } catch (e) {
-    repondre(e);
+1⊷Black Pink pink logo with members signature  
+2⊷ Black Pink style 
+3⊷ Silver 3D  
+4⊷ Naruto  
+5⊷ Digital Glitch
+6⊷ Birthday cake  
+7⊷ Zodiac 
+8⊷ Underwater 🫧
+9⊷ Glow 🌟
+10⊷ Avatar gold🥇  
+11⊷ Bokeh 
+12⊷ Fireworks 🎇
+13⊷ Gaming logo 
+14⊷ Signature 💫 
+15⊷ Luxury 
+16⊷ Dragon fire 🐉
+17⊷ Queen card
+18⊷ Graffiti color   
+19⊷ Tattoo 
+20⊷ Pentakill 🔥
+21⊷ Halloween 🎃
+22⊷ Horror    
+23⊷ Blood 🩸
+24⊷ Women's day    
+25⊷ Valentine 
+26⊷ Neon light 🕯️
+27⊷ Gaming assassin 
+28⊷ Foggy glass 
+29⊷ Sand summer beach 🏖️
+30⊷ Light 🚨  
+31⊷ Modern gold 🪙
+32⊷ Cartoon style graffiti 
+33⊷ Galaxy ❤️‍🔥
+34⊷ Anonymous hacker (avatar cyan neon)
+35⊷ Birthday flower cake 🎂
+36⊷ Dragon 🐲 ball 
+37⊷ Elegant rotation 
+38⊷ Write text on wet glass
+39⊷ Water 3D 
+40⊷ Realistic sand ⌛
+41⊷ PUBG mascot
+42⊷ Typography 
+43⊷ Naruto Shippuden 
+44⊷ Colourful paint 🎨
+45⊷ Typography maker
+46⊷ Incandescent
+47⊷ Cartoon style graffiti 
+48⊷ Galaxy ❤️‍🔥
+49⊷ Anonymous hacker (avatar cyan neon)
+50⊷ Birthday cake
+
+*Enjoy 🫅*`;
+
+    const contextInfo = {
+      mentionedJid: [ms.sender], // Mention the sender
+      externalAdReply: {
+        title: "🌟 CHARLESKE-VMD ✨",
+        body: "Regards, CHARLESKE🥳",
+        thumbnailUrl: ".https://files.catbox.moe/kqqtnz.jpeg",
+        sourceUrl: "https://whatsapp.com/channel/0029Vad7YNyJuyA77CtIPX0x",
+        mediaType: 1,
+        renderLargerThumbnail: true,
+      },
+    };
+
+    const messageToSend = {
+      text: messageText,
+      contextInfo,
+    };
+
+    // Send the message
+    const sentMessage = await zk.sendMessage(dest, messageToSend, { quoted: ms });
+
+    // Event listener for message responses
+    zk.ev.on('messages.upsert', async (update) => {
+      const message = update.messages[0];
+      if (!message.message || !message.message.extendedTextMessage) {
+        return;
+      }
+
+      const responseText = message.message.extendedTextMessage.text.trim();
+      if (message.message.extendedTextMessage.contextInfo && message.message.extendedTextMessage.contextInfo.stanzaId === sentMessage.key.id) {
+        // Handle different logo choices based on number
+        let logoUrl;
+        switch (responseText) {
+          case '1':
+            logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-a-blackpink-style-logo-with-members-signatures-810.html", text);
+            break;
+          case '2':
+            logoUrl = await fetchLogoUrl("https://en.ephoto360.com/online-blackpink-style-logo-maker-effect-711.html", text);
+            break;
+          case '3':
+            logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-glossy-silver-3d-text-effect-online-802.html", text);
+            break;
+          case '4':
+            logoUrl = await fetchLogoUrl("https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html", text);
+            break;
+          case '5':
+            logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-digital-glitch-text-effects-online-767.html", text);
+            break;
+          case '6':
+            logoUrl = await fetchLogoUrl("https://en.ephoto360.com/birthday-cake-96.html", text);
+            break;
+          case '7':
+            logoUrl = await fetchLogoUrl("https://en.ephoto360.com/free-zodiac-online-logo-maker-491.html", text);
+            break;
+          case '8':
+            logoUrl = await fetchLogoUrl("https://en.ephoto360.com/3d-underwater-text-effect-online-682.html", text);
+            break;
+          case '9':
+            logoUrl = await fetchLogoUrl("https://en.ephoto360.com/advanced-glow-effects-74.html", text);
+            break;
+          case '10':
+            logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-avatar-gold-online-303.html", text);
+            break;
+          case '11':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/bokeh-text-effect-86.html", text);
+                        break;
+                    case '12':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/text-firework-effect-356.html", text);
+                        break;
+                    case '13':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/free-gaming-logo-maker-for-fps-game-team-546.html", text);
+                        break;
+                    case '14':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/arrow-tattoo-effect-with-signature-712.html", text);
+                        break;
+                      case '15':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/free-luxury-logo-maker-create-logo-online-458.html", text);
+                        break;
+                    case '16':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/dragon-fire-text-effect-111.html", text);
+                        break;
+                    case '17':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-a-personalized-queen-card-avatar-730.html", text);
+                        break;
+                    case '18':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/graffiti-color-199.html", text);
+                        break;
+                    case '19':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/make-tattoos-online-by-your-name-309.html", text);
+                        break;
+                    case '20':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-a-lol-pentakill-231.html", text);
+                        break;
+                    case '21':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/cards-halloween-online-81.html", text);
+                        break;
+                      case '22':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/writing-horror-letters-on-metal-plates-265.html", text);
+                        break;
+                    case '23':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/write-blood-text-on-the-wall-264.html", text);
+                        break;
+                    case '24':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-beautiful-international-women-s-day-cards-399.html", text);
+                        break;
+                    case '25':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/beautiful-flower-valentine-s-day-greeting-cards-online-512.html", text);
+                        break;
+                    case '26':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-colorful-neon-light-text-effects-online-797.html", text);
+                        break;
+                    case '27':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-logo-team-logo-gaming-assassin-style-574.html", text);
+                        break;
+                    case '28':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/handwritten-text-on-foggy-glass-online-680.html", text);
+                        break;
+                    case '29':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/write-in-sand-summer-beach-online-576.html", text);
+                        break;
+                    case '30':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/text-light-effets-234.html", text);
+                        break;
+                    case '31':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/modern-gold-3-212.html", text);
+                        break;
+                    case '32':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-a-cartoon-style-graffiti-text-effect-online-668.html", text);
+                        break;
+                    case '33':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/galaxy-text-effect-new-258.html", text);
+                        break;
+                    case '34':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-anonymous-hacker-avatars-cyan-neon-677.html", text);
+                        break;
+                    case '35':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/write-name-on-flower-birthday-cake-pics-472.html", text);
+                        break; 
+                    case '36':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-dragon-ball-style-text-effects-online-809.html", text);
+                        break;
+                    case '37':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-elegant-rotation-logo-online-586.html", text);
+                        break;
+                    case '38':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/write-text-on-wet-glass-online-589.html", text);
+                        break;
+                    case '39':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/water-3d-text-effect-online-126.html", text);
+                        break;
+                    case '40':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/realistic-3d-sand-text-effect-online-580.html", text);
+                        break;
+                    case '41':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/pubg-mascot-logo-maker-for-an-esports-team-612.html", text);
+                        break;
+                     case '42':
+                        logoUrl = await fetchLogoUrl("1https://en.ephoto360.com/create-online-typography-art-effects-with-multiple-layers-811.html", text);
+                        break;
+                     case '43':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html", text);
+                        break;
+                    case '44':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-3d-colorful-paint-text-effect-online-801.html", text);
+                        break;
+                    case '45':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/make-typography-text-online-338.html", text);
+                        break;
+                    case '46':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/text-effects-incandescent-bulbs-219.html", text);
+                        break;
+                    case '47':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/create-digital-glitch-text-effects-online-767.html", text);
+                        break;
+                    case '48':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/birthday-cake-96.html", text);
+                        break;
+                    case '49':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/free-zodiac-online-logo-maker-491.html", text);
+                        break;
+                     case '50':
+                        logoUrl = await fetchLogoUrl("https://en.ephoto360.com/free-zodiac-online-logo-maker-491.html", text);
+                        break;
+          // Add additional cases as required
+          default:
+            return repondre("*_Invalid number. Please reply with a valid number._*");
+        }
+
+        // Send the logo
+        if (logoUrl) {
+          await zk.sendMessage(dest, {
+            image: { url: logoUrl },
+            caption: `*POWERED BY CHARLESKE*`,
+          }, { quoted: ms });
+        }
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    repondre(`Error: ${error}`);
   }
 });
+
+// Function to fetch the logo URL using axios
+const fetchLogoUrl = async (url, name) => {
+  try {
+    const response = await axios.get(`https://api-pink-venom.vercel.app/api/logo`, {
+      params: { url, name }
+    });
+    return response.data.result.download_url;
+  } catch (error) {
+    console.error("Error fetching logo:", error);
+    return null;
+  }
+};

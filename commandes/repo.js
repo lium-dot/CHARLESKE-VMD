@@ -70,8 +70,8 @@ commands.forEach((command) => {
         try {
             // Send the follow-up image first with a caption
             await zk.sendMessage(dest, {
-                image: { url: "https://files.catbox.moe/n6dmx3.jpeg" }, // Updated image
-                caption: `✨ Repository Highlights ✨\n\n🛠️ Developed by *Charles Kenya*\n📢 Stay updated\nhttps://chat.whatsapp.com/EFh0BWKa0Uf92A7RgBwpuu\n\nRepo Url\nhttps://github.com/Charleskenya1/CHARLESKE`,
+                image: { url: "https://files.catbox.moe/kqqtnz.jpeg" }, // Updated image
+                caption: `✨ Repository Highlights ✨\n\n🛠️ Developed by *Charleskenya1*\n📢 Stay updated\nhttps://whatsapp.com/channel/0029Vao2hgeChq6HJ5bmlZ3K\n\nRepo Url\nhttps://github.com/Charleskenya1/CHARLESKE`,
             });
 
             // Follow up with the GitHub repository details
@@ -85,3 +85,4 @@ commands.forEach((command) => {
         }
     });
 });
+              

@@ -1,3 +1,4 @@
+
 const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
 const { zokou } = require("../framework/zokou");
 const traduire = require("../framework/traduction");
@@ -70,7 +71,7 @@ const alea = (ext) => {
     }
 
     sticker = new Sticker(buffer, {
-      pack:"Beltah-Md" ,
+      pack:"charlesmd" ,
       author: nomAuteurMessage,
       type:
         arg.includes("crop") || arg.includes("c")

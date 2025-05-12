@@ -1,3 +1,4 @@
+
 const { zokou } = require('../framework/zokou');
 
 // Set a riddle list with questions and answers

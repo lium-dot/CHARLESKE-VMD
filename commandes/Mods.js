@@ -1,3 +1,4 @@
+
 const { zokou } = require('../framework/zokou');
 const axios = require("axios")
 let { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
@@ -47,7 +48,7 @@ const sleep =  (ms) =>{
         type = 'not animated sticker'
       }
   
-      let msg = `   Beltah-md-stickers-dl
+      let msg = `   Charles-md-stickers-dl
       
   *Name :* ${stickers.data.result.name}
   *Type :* ${type} 
@@ -517,7 +518,6 @@ zokou({ nomCom: "save", categorie: "Mods" }, async (dest, zk, commandeOptions) =
   })
 ;
 
-
 zokou({ nomCom: "vv", categorie: "Mods" }, async (dest, zk, commandeOptions) => {
 
   const { repondre , msgRepondu , superUser, auteurMessage } = commandeOptions;
@@ -600,7 +600,6 @@ zokou({ nomCom: "vv", categorie: "Mods" }, async (dest, zk, commandeOptions) => 
 
   })
 ;
-
 zokou({
   nomCom : 'mention',
   categorie : 'Mods',

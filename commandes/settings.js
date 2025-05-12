@@ -1,3 +1,21 @@
+Skip to content
+Navigation Menu
+
+Code
+Pull requests
+Actions
+Projects
+NEXUS-AI/pkdriller
+/settings.js
+Pkdriller
+Pkdriller
+17 hours ago
+546 lines (428 loc) · 19.5 KB
+
+Code
+
+Blame
+  operate: async ({ reply, args, prefix, command, db, isCreator }) => {
 const fs = require('fs');
 const fsp = fs.promises;
 
@@ -73,341 +91,6 @@ await reply(`+${userToAdd.split('@')[0]} is already a sudo user.`);
 },
   {
   command: ['alwaysonline'],
-  operate: async ({ Cypher, m, reply, args, prefix, command, isCreator, mess, db, botNumber }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} on/off`);
-
-    const validOptions = ["on", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply("Invalid option");
-
-    db.data.settings.alwaysonline = option === "on";
-
-    if (global.dbToken) {
-        await global.writeDB();
-    }
-
-    reply(`Always-online ${option === "on" ? "enabled" : "disabled"} successfully`);
-  }
-},
-{
-  command: ['anticall'],
-  operate: async ({ reply, args, prefix, command, isCreator, mess, db }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} block/decline/off\n\nblock - Declines and blocks callers\ndecline - Declines incoming calls\noff - disables anticall`);
-
-    const validOptions = ["block", "decline", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply(`Invalid option; type *${prefix}anticall* to see available options!`);
-
-    db.data.settings.anticall = option === "off" ? false : option;
-
-    if (global.dbToken) await global.writeDB();
-
-    reply(`Anti-call set to *${option}* successfully.`);
-  }
-},
-{
-  command: ['antidelete'],
-  operate: async ({ Cypher, m, reply, args, prefix, command, isCreator, mess, db, botNumber }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} private/chat/off\n\nprivate - sends deleted messages to message yourself\nchat - sends to current chat\noff - disables antidelete`);
-
-    const validOptions = ["private", "chat", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply("Invalid option. Use: private, chat, or off");
-
-    db.data.settings.antidelete = option;
-
-    if (global.dbToken) {
-        await global.writeDB();
-    }
-
-    reply(`Anti-delete mode set to: *${option}*`);
-  }
-},
-{
-  command: ['antiedit'],
-  operate: async ({ Cypher, m, reply, args, prefix, command, isCreator, mess, db, botNumber }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} private/chat/off\n\n private - sends edited messages to message yourself\nchat - sends to current chat\noff - disables antiedit`);
-
-    const validOptions = ["private", "chat", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply("Invalid option. Use: private, chat, or off");
-
-    db.data.settings.antiedit = option;
-
-    if (global.dbToken) {
-        await global.writeDB();
-    }
-
-    reply(`Anti-edit mode set to: *${option}*`);
-  }
-},
-  {
-  command: ['autobio'],
-  operate: async ({ Cypher, m, reply, args, prefix, command, isCreator, mess, db, botNumber }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} on/off`);
-
-    const validOptions = ["on", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply("Invalid option");
-
-    db.data.settings.autobio = option === "on";
-
-    if (global.dbToken) {
-        await global.writeDB();
-    }
-
-    reply(`Auto-bio ${option === "on" ? "enabled" : "disabled"} successfully`);
-  }
-},
-  {
-  command: ['autoreactstatus', 'autostatusreact'],
-  operate: async ({ Cypher, m, reply, args, prefix, command, isCreator, mess, db, botNumber }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} on/off`);
-
-    const validOptions = ["on", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply("Invalid option");
-
-    db.data.settings.autoreactstatus = option === "on";
-
-    if (global.dbToken) {
-        await global.writeDB();
-    }
-
-    reply(`Auto status reaction ${option === "on" ? "enabled" : "disabled"} successfully.`);
-  }
-},
-  {
-  command: ['autoviewstatus', 'autostatusview'],
-  operate: async ({ Cypher, m, reply, args, prefix, command, isCreator, mess, db, botNumber }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} on/off`);
-
-    const validOptions = ["on", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply("Invalid option");
-
-    db.data.settings.autoviewstatus = option === "on";
-
-    if (global.dbToken) {
-        await global.writeDB();
-    }
-
-    reply(`Auto status view ${option === "on" ? "enabled" : "disabled"} successfully`);
-  }
-},
-{
-  command: ['autoreact', 'autoreacting'],
-  operate: async ({ reply, args, prefix, command, isCreator, mess, db }) => {
-    if (!isCreator) return reply(mess.owner);
-    
-    if (args.length < 1) {
-      return reply(`Example: ${prefix + command} all/group/pm/command/off\n\nall - reacts to all messages\ngroup - reacts to messages in groups\npm - reacts to private messages\ncommand - reacts when a command is used\noff - disables auto-reaction`);
-    }
-
-    const validOptions = ["all", "group", "pm", "command", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) {
-      return reply(`Invalid option; type *${prefix}autoreact* to see available options!`);
-    }
-
-    db.data.settings.autoreact = option === "off" ? false : option;
-
-    if (global.dbToken) await global.writeDB();
-
-    reply(`Auto-reaction set to *${option}* successfully.`);
-  }
-},
-{
-  command: ['autoread'],
-  operate: async ({ reply, args, prefix, command, isCreator, mess, db }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} all/group/pm/command/off\n\nall - reads all messages\ngroup - reads group messages alone\npm - reads private messages alone\ncommand - reads bot commands only\noff disables autoread`);
-
-    const validOptions = ["all", "group", "pm", "command", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply(`Invalid option; type *${prefix}autoread* to see available options!`);
-
-    db.data.settings.autoread = option === "off" ? false : option;
-
-    if (global.dbToken) await global.writeDB();
-
-    reply(`Auto-read set to *${option}* successfully.`);
-  }
-},
-{
-  command: ['autotype', 'autotyping'],
-  operate: async ({ reply, args, prefix, command, isCreator, mess, db }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} all/group/pm/command/off\n\ngroup - typing in groups\npm - typing in private chats\ncommand - typing when a command is used\noff - disables autotyping`);
-
-    const validOptions = ["all", "group", "pm", "command", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply(`Invalid option; type *${prefix}autotype* to see available options!`);
-
-    db.data.settings.autotype = option === "off" ? false : option;
-
-    if (global.dbToken) await global.writeDB();
-
-    reply(`Auto-typing set to *${option}* successfully.`);
-  }
-},
-{
-  command: ['autorecord', 'autorecording'],
-  operate: async ({ reply, args, prefix, command, isCreator, mess, db }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} all/group/pm/command/off\n\ngroup - recording in groups\npm - recording in private chats\ncommand - recording when a command is used\noff - disables auto-recording`);
-
-    const validOptions = ["all", "group", "pm", "command", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply(`Invalid option; type *${prefix}autorecord* to see available options!`);
-
-    db.data.settings.autorecord = option === "off" ? false : option;
-
-    if (global.dbToken) await global.writeDB();
-
-    reply(`Auto-record set to *${option}* successfully.`);
-  }
-},
-{
-  command: ['autorecordtyping', 'autorecordtype'],
-  operate: async ({ reply, args, prefix, command, isCreator, mess, db }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} all/group/pm/command/off\n\ngroup - random typing/recording in groups\npm - random typing/recording in private chats\ncommand - random typing/recording when a command is used\noff - disables auto-record typing`);
-
-    const validOptions = ["all", "group", "pm", "command", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply(`Invalid option; type *${prefix}autorecordtype* to see available options!`);
-
-    db.data.settings.autorecordtype = option === "off" ? false : option;
-
-    if (global.dbToken) await global.writeDB();
-
-    reply(`Auto-record typing set to *${option}* successfully.`);
-  }
-},
-  {
-  command: ['chatbot'],
-  operate: async ({ Cypher, m, reply, args, prefix, command, isCreator, mess, db, botNumber }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} on/off`);
-
-    const validOptions = ["on", "off"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply("Invalid option");
-
-    db.data.settings.chatbot = option === "on";
-
-    if (global.dbToken) {
-        await global.writeDB();
-    }
-
-    reply(`Chatbot ${option === "on" ? "enabled" : "disabled"} successfully`);
-  }
-},
-  {
-  command: ['deletebadword'],
-  operate: async ({ Cypher, m, isCreator, mess, prefix, args, q, bad, reply }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Use ${prefix}deletebadword [harsh word].`);
-
-    const index = bad.indexOf(q);
-    if (index === -1) {
-      return reply('This word is not in the list!');
-    }
-
-    bad.splice(index, 1);
-
-    try {
-      await fsp.writeFile('./src/badwords.json', JSON.stringify(bad, null, 2));
-      reply('Successfully deleted bad word!');
-    } catch (error) {
-      console.error('Error writing to badwords.json:', error);
-      reply('An error occurred while deleting the bad word.');
-    }
-  }
-},
-{
-  command: ['delignorelist'],
-  operate: async ({ m, args, isCreator, loadBlacklist, mess, reply }) => {
-    if (!isCreator) return reply(mess.owner);
-
-    let mentionedUser = m.mentionedJid && m.mentionedJid[0];
-    let quotedUser = m.quoted && m.quoted.sender;
-    let userToRemove = mentionedUser || quotedUser || m.chat;
-
-    if (!userToRemove) return reply('Mention a user, reply to their message, or provide a phone number to remove from the ignore list.');
-
-    let blacklist = loadBlacklist();
-    let index = blacklist.blacklisted_numbers.indexOf(userToRemove);
-    if (index !== -1) {
-        blacklist.blacklisted_numbers.splice(index, 1);
-
-    if (global.dbToken) {
-        await global.writeDB();
-    }
-
-await reply(`+${userToRemove.split('@')[0]} removed from the ignore list.`);
-    } else {
-await reply(`+${userToRemove.split('@')[0]} is not in the ignore list.`);
-    }
-  }
-},
-{
-  command: ['delsudo'],
-  operate: async ({ m, args, isCreator, reply }) => {
- if (!isCreator) return reply(mess.owner);
-
-if (m.chat.endsWith('@g.us') && !(m.mentionedJid && m.mentionedJid[0]) && !(m.quoted && m.quoted.sender)) {
-  return reply('Reply to or tag a person!');
-}
-
-    const userToRemove = m.mentionedJid && m.mentionedJid[0] || m.quoted && m.quoted.sender || m.chat;
-
-    if (!userToRemove) return reply('Mention a user or reply to their message to remove them from the sudo list.');
-
-    const sudoList = global.db.data.sudo;
-    const index = sudoList.indexOf(userToRemove);
-
-    if (index !== -1) {
-      sudoList.splice(index, 1);
-      if (global.dbToken) await global.writeDB();
-await reply(`+${userToRemove.split('@')[0]} removed from the sudo list.`);
-    } else {
-await reply(`+${userToRemove.split('@')[0]} is not in the sudo list.`);
-    }
-  }
-},
-{
-  command: ['mode'],
-  operate: async ({ Cypher, m, reply, args, prefix, command, isCreator, mess, db, botNumber }) => {
-    if (!isCreator) return reply(mess.owner);
-    if (args.length < 1) return reply(`Example: ${prefix + command} public/private/group/pm\n\nprivate - sets the bot to private mode\npublic - sets the bot to public mode\ngroup - sets the bot to be public on groups alone\npm - sets the bot to be public on personal chats alone.`);
-
-    const validOptions = ["private", "public", "group", "pm"];
-    const option = args[0].toLowerCase();
-
-    if (!validOptions.includes(option)) return reply("Invalid option. Use: private, public, group or pm");
-
     db.data.settings.mode = option;
 
     if (global.dbToken) {
@@ -512,21 +195,21 @@ await reply(`+${userToRemove.split('@')[0]} is not in the sudo list.`);
     const defaultSettings = {
         prefix: ".",
         mode: "public",
-        autobio: true,
+        autobio: false,
         anticall: false,
-        chatbot: true,
+        chatbot: false,
         autotype: false,
         autoread: false,
         welcome: false,
         antiedit: "private",
         menustyle: "2",
         autoreact: true,
-        statusemoji: "🩷",
+        statusemoji: "🧡",
         autorecord: false,
         antidelete: "private",
         alwaysonline: true,
         autoviewstatus: true,
-        autoreactstatus: true,
+        autoreactstatus: false,
         autorecordtype: false
     };
 
@@ -544,3 +227,4 @@ await reply(`+${userToRemove.split('@')[0]} is not in the sudo list.`);
   }
 }
 ];
+CHARLESKE/Charleskenya1/settings.js at main · Charleskenya1/CHARLESKE 
